@@ -1,0 +1,1570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <title>90 Days to CGL — Nikhil × Ankita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f7fb;
+  --surface: #fff;
+  --ink: #101828;
+  --muted: #667085;
+  --line: #e7eaf0;
+  --nav: #0b1220;
+  --blue: #2563eb;
+  --blue-soft: #eff6ff;
+  --purple: #7c3aed;
+  --purple-soft: #f5f3ff;
+  --green: #16a36a;
+  --orange: #f97316;
+  --red: #dc2626;
+  --shadow: 0 16px 50px rgba(16, 24, 40, .08);
+  --radius: 22px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "DM Sans", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  min-height: 74px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 30px;
+  padding: 12px max(24px, calc((100vw - 1240px) / 2));
+  color: #fff;
+  background: rgba(11, 18, 32, .96);
+  backdrop-filter: blur(16px);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #fff;
+  text-decoration: none;
+  font: 800 16px/1.1 Manrope, sans-serif;
+  white-space: nowrap;
+}
+.logo small { display: block; margin-top: 4px; color: #98a2b3; font: 500 11px DM Sans, sans-serif; }
+.logo-mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #3b82f6, #7c3aed);
+  box-shadow: 0 8px 22px rgba(59, 130, 246, .3);
+}
+nav { display: flex; justify-content: center; gap: 4px; }
+.nav-item {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 13px;
+  background: transparent;
+  color: #98a2b3;
+  font-weight: 600;
+  font-size: 13px;
+}
+.nav-item:hover, .nav-item.active { color: #fff; background: #1d2939; }
+.sync-pill {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid #344054;
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: #d0d5dd;
+  background: #1d2939;
+  font-size: 12px;
+  font-weight: 600;
+}
+.sync-pill i { width: 8px; height: 8px; border-radius: 50%; background: #f59e0b; }
+.sync-pill.connected i { background: #12b76a; box-shadow: 0 0 0 4px rgba(18,183,106,.13); }
+
+.shell { width: min(1240px, calc(100% - 40px)); margin: 0 auto; padding: 42px 0 70px; }
+.view { display: none; animation: enter .28s ease; }
+.view.active { display: block; }
+@keyframes enter { from { opacity: 0; transform: translateY(7px); } }
+
+.hero {
+  min-height: 270px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 40px;
+  padding: 42px;
+  border-radius: 28px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(124,58,237,.7), transparent 32%),
+    radial-gradient(circle at 55% 110%, rgba(37,99,235,.7), transparent 35%),
+    #0b1220;
+  box-shadow: 0 24px 60px rgba(11,18,32,.17);
+  overflow: hidden;
+}
+.kicker {
+  margin: 0 0 10px;
+  color: var(--blue);
+  font-size: 11px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+.hero .kicker { color: #93c5fd; }
+.hero h1, .page-head h2, .modal-head h2 {
+  margin: 0;
+  font: 800 clamp(31px, 5vw, 54px)/1.08 Manrope, sans-serif;
+  letter-spacing: -.045em;
+}
+.hero h1 em { color: #a5b4fc; font-style: normal; }
+.hero-date { margin: 18px 0 0; color: #b9c0ce; }
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 118px);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 18px;
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(12px);
+}
+.hero-stats div { padding: 18px; border-right: 1px solid rgba(255,255,255,.1); }
+.hero-stats div:last-child { border-right: 0; }
+.hero-stats strong { display: block; font: 800 28px Manrope; }
+.hero-stats span { display: block; margin-top: 4px; color: #aeb6c5; font-size: 11px; line-height: 1.25; }
+
+.date-strip {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  margin: 22px 0;
+}
+.date-strip > button {
+  width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 13px; background: #fff; color: var(--muted);
+}
+#dateStripDays { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.date-chip {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 8px 5px;
+  background: #fff;
+  color: var(--muted);
+  text-align: center;
+}
+.date-chip b { display: block; color: var(--ink); font-size: 15px; }
+.date-chip span { font-size: 10px; text-transform: uppercase; }
+.date-chip.active { border-color: var(--blue); background: var(--blue); color: #dbeafe; box-shadow: 0 8px 18px rgba(37,99,235,.22); }
+.date-chip.active b { color: #fff; }
+
+.daily-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.student-card, .card, .metric, .compare-card, .mistake-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(16,24,40,.02);
+}
+.student-card { overflow: hidden; }
+.student-head { display: flex; align-items: center; gap: 13px; padding: 22px 24px; border-bottom: 1px solid var(--line); }
+.avatar { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; color: #fff; background: linear-gradient(135deg, #2563eb, #60a5fa); font: 800 15px Manrope; }
+.student-card.ankita .avatar { background: linear-gradient(135deg, #7c3aed, #c084fc); }
+.student-head h3 { margin: 0; font: 800 18px Manrope; }
+.student-head p { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+.completion { margin-left: auto; text-align: right; }
+.completion b { font: 800 19px Manrope; }
+.completion span { display: block; color: var(--muted); font-size: 10px; }
+.tasks { padding: 10px 14px 16px; }
+.task-row { display: grid; grid-template-columns: auto 1fr auto auto; gap: 12px; align-items: center; padding: 13px 10px; border-bottom: 1px solid #f0f2f5; }
+.task-row:last-child { border-bottom: 0; }
+.task-row input { width: 20px; height: 20px; accent-color: var(--blue); }
+.ankita .task-row input { accent-color: var(--purple); }
+.task-row strong { display: block; font-size: 13px; }
+.task-row small { display: block; margin-top: 3px; color: var(--muted); font-size: 11px; }
+.task-row.done strong, .task-row.done small { text-decoration: line-through; opacity: .55; }
+.task-tag { border-radius: 999px; padding: 4px 7px; background: #f2f4f7; color: #475467; font-size: 9px; font-weight: 800; text-transform: uppercase; }
+.task-score { min-width: 58px; color: var(--green); font-size: 10px; font-weight: 800; text-align: right; }
+.edit-target { width: 28px; height: 28px; border: 0; border-radius: 8px; color: #667085; background: #f2f4f7; font-size: 13px; }
+.add-target {
+  width: 100%; margin-top: 8px; border: 1px dashed #b7c0ce; border-radius: 11px; padding: 10px;
+  color: var(--blue); background: #f8fbff; font-size: 11px; font-weight: 800;
+}
+.ankita .add-target { color: var(--purple); background: #fbfaff; }
+
+.mock-callout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 22px 24px;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius);
+  background: linear-gradient(110deg, #eff6ff, #faf5ff);
+}
+.mock-callout h3 { margin: 0 0 5px; font: 800 16px Manrope; }
+.mock-callout p { margin: 0; color: var(--muted); font-size: 13px; }
+.primary, .secondary {
+  border: 0; border-radius: 12px; padding: 11px 16px; font-weight: 700; text-decoration: none;
+}
+.primary.compact { padding: 9px 13px; font-size: 11px; white-space: nowrap; }
+.primary { color: #fff; background: var(--blue); box-shadow: 0 8px 18px rgba(37,99,235,.2); }
+.primary:hover { background: #1d4ed8; }
+.secondary { color: #344054; border: 1px solid var(--line); background: #fff; }
+.secondary.danger { color: var(--red); }
+
+.page-head { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 28px; }
+.page-head h2, .modal-head h2 { font-size: clamp(28px, 4vw, 42px); }
+.metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 18px; }
+.metric { padding: 20px; }
+.metric span { color: var(--muted); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; }
+.metric strong { display: block; margin-top: 8px; font: 800 27px Manrope; }
+.metric small { color: var(--muted); }
+.card { padding: 22px; margin-bottom: 18px; }
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 18px; }
+.card-head h3 { margin: 0; font: 800 18px Manrope; }
+.card-head p { margin: 4px 0 0; color: var(--muted); font-size: 12px; }
+select, input, textarea {
+  width: 100%;
+  border: 1px solid #d9dee7;
+  border-radius: 11px;
+  padding: 10px 12px;
+  color: var(--ink);
+  background: #fff;
+  outline: none;
+}
+select:focus, input:focus, textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
+.card-head select { width: auto; }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { padding: 10px; color: var(--muted); text-align: left; text-transform: uppercase; letter-spacing: .06em; font-size: 9px; }
+td { padding: 13px 10px; border-top: 1px solid #eef0f4; white-space: nowrap; }
+.person-name { font-weight: 800; color: var(--blue); }
+.person-name.partner { color: var(--purple); }
+.icon-delete { border: 0; color: #98a2b3; background: none; }
+.empty-state { grid-column: 1 / -1; padding: 46px 20px; text-align: center; color: var(--muted); }
+.sectional-summary { display: flex; flex-wrap: wrap; gap: 8px; margin: -4px 0 16px; }
+.sectional-pill { padding: 7px 10px; border-radius: 999px; color: #344054; background: #f2f4f7; font-size: 10px; font-weight: 700; }
+
+.comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
+.compare-card { padding: 24px; }
+.compare-card.nikhil { border-top: 4px solid var(--blue); }
+.compare-card.partner { border-top: 4px solid var(--purple); }
+.compare-card h3 { margin: 0; font: 800 20px Manrope; }
+.compare-main { margin: 18px 0; font: 800 40px Manrope; }
+.compare-main small { color: var(--muted); font: 500 12px DM Sans; }
+.compare-list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.compare-list div { padding: 12px; border-radius: 12px; background: #f8fafc; }
+.compare-list span { display: block; color: var(--muted); font-size: 10px; }
+.compare-list b { font-size: 15px; }
+.chart-card canvas { width: 100%; height: 270px; }
+.chart-legend { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 11px; }
+.chart-legend span { width: 9px; height: 9px; border-radius: 50%; margin-left: 8px; }
+.chart-legend .n { background: var(--blue); } .chart-legend .a { background: var(--purple); }
+.subject-bars { display: grid; gap: 20px; }
+.subject-row { display: grid; grid-template-columns: 90px 1fr 1fr; gap: 16px; align-items: center; }
+.subject-row > b { font-size: 12px; }
+.bar-wrap { display: grid; grid-template-columns: 55px 1fr; gap: 10px; align-items: center; }
+.bar-wrap span { font-size: 11px; color: var(--muted); }
+.bar-track { height: 9px; border-radius: 999px; background: #eef1f5; overflow: hidden; }
+.bar-track i { display: block; height: 100%; border-radius: inherit; background: var(--blue); }
+.bar-wrap.ankita i { background: var(--purple); }
+
+.filter-bar { display: grid; grid-template-columns: 1fr 170px 170px auto; gap: 10px; margin-bottom: 18px; }
+.check-filter { display: flex; align-items: center; gap: 8px; padding: 0 12px; border: 1px solid var(--line); border-radius: 11px; background: #fff; font-size: 11px; white-space: nowrap; }
+.check-filter input { width: auto; }
+.mistake-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.mistake-card { overflow: hidden; }
+.mistake-image { width: 100%; height: 160px; object-fit: cover; display: block; cursor: zoom-in; background: #eef1f5; }
+.mistake-content { padding: 18px; }
+.mistake-top { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+.label { display: inline-flex; padding: 4px 7px; border-radius: 999px; color: #344054; background: #f2f4f7; font-size: 9px; font-weight: 800; text-transform: uppercase; }
+.label.person { color: #1d4ed8; background: #eff6ff; }
+.mistake-card h3 { margin: 0 0 10px; font-size: 14px; line-height: 1.4; }
+.learning { padding: 12px; border-left: 3px solid var(--green); border-radius: 8px; color: #175c40; background: #ecfdf3; font-size: 12px; }
+.mistake-source { margin-top: 11px; color: var(--muted); font-size: 10px; }
+.mistake-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
+.revision-button { border: 0; border-radius: 8px; padding: 7px 9px; color: #7c2d12; background: #fff7ed; font-size: 10px; font-weight: 800; }
+.revision-button.done { color: #166534; background: #f0fdf4; }
+
+.plan-key { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+.plan-key span { padding: 5px 9px; border-radius: 999px; background: #fff; font-size: 10px; font-weight: 700; }
+.plan-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 9px; }
+.plan-day { min-height: 132px; padding: 12px; border: 1px solid var(--line); border-top: 4px solid #98a2b3; border-radius: 13px; background: #fff; }
+.plan-day.today { outline: 2px solid var(--blue); outline-offset: 2px; }
+.plan-day.history { border-top-color: #f97316; } .plan-day.polity { border-top-color: #2563eb; }
+.plan-day.geo { border-top-color: #16a36a; } .plan-day.eco { border-top-color: #eab308; }
+.plan-day.sci { border-top-color: #7c3aed; } .plan-day.static { border-top-color: #ec4899; }
+.plan-day small { color: var(--muted); font-size: 9px; font-weight: 700; }
+.plan-day strong { display: block; margin: 8px 0 5px; font-size: 11px; line-height: 1.3; }
+.plan-day p { margin: 0; color: var(--muted); font-size: 9px; line-height: 1.35; }
+
+dialog { width: min(720px, calc(100% - 28px)); max-width: calc(100vw - 28px); max-height: calc(100vh - 30px); border: 0; border-radius: 22px; padding: 0; overflow: hidden; box-shadow: 0 30px 90px rgba(16,24,40,.3); }
+dialog::backdrop { background: rgba(11,18,32,.65); backdrop-filter: blur(4px); }
+.modal-form { padding: 26px; overflow-x: hidden; overflow-y: auto; max-height: calc(100vh - 30px); }
+.modal-head { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+.modal-head h2 { font-size: 29px; }
+.modal-head .close-modal {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 10px;
+  color: #667085;
+  background: #f2f4f7;
+  font-size: 22px;
+  line-height: 1;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-grid label, #syncForm > label { display: grid; gap: 6px; color: #344054; font-size: 11px; font-weight: 700; }
+.form-grid label small { color: var(--muted); font-weight: 500; }
+.form-grid .full { grid-column: 1 / -1; }
+textarea { resize: vertical; }
+.upload-zone { padding: 14px; border: 1px dashed #98a2b3; border-radius: 12px; background: #f8fafc; }
+.modal-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 22px;
+  width: 100%;
+}
+.modal-actions button {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  white-space: nowrap;
+}
+.modal-actions .primary { order: 1; }
+.modal-actions [data-close-dialog] { order: 2; }
+.modal-actions .danger { order: 3; }
+.setup-steps { padding: 14px 16px; border-radius: 13px; background: var(--blue-soft); font-size: 12px; }
+.setup-steps p { margin: 6px 0; }
+.inline-button { border: 0; padding: 0; color: var(--blue); background: none; font-weight: 800; text-decoration: underline; }
+#syncForm > label { margin-top: 12px; }
+.privacy-note { color: var(--muted); font-size: 10px; }
+.toast { position: fixed; left: 50%; bottom: 26px; z-index: 50; transform: translate(-50%, 15px); padding: 11px 17px; border-radius: 999px; color: #fff; background: #101828; box-shadow: var(--shadow); font-size: 12px; font-weight: 700; opacity: 0; transition: .2s; }
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.image-viewer { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: 40px; background: rgba(0,0,0,.88); }
+.image-viewer[hidden] { display: none; }
+.image-viewer img { max-width: 95vw; max-height: 90vh; border-radius: 10px; }
+.image-viewer button { position: absolute; top: 20px; right: 24px; border: 0; color: #fff; background: none; font-size: 34px; }
+
+.mock-form { width: 100%; }
+.mock-meta-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+.mock-meta-grid label, .mock-result-row label, .standalone-label {
+  display: grid; gap: 6px; color: #344054; font-size: 11px; font-weight: 700;
+}
+.score-section-title { display: flex; justify-content: space-between; align-items: baseline; margin: 23px 0 10px; }
+.score-section-title span { font: 800 13px Manrope; }
+.score-section-title small { color: var(--muted); font-size: 10px; }
+.score-entry-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; }
+.score-box {
+  display: grid; min-width: 0; padding: 13px; border: 1px solid var(--line); border-radius: 14px; background: #f8fafc;
+}
+.score-box span { font: 800 12px Manrope; }
+.score-box small { margin: 2px 0 10px; color: var(--muted); font-size: 9px; }
+.score-box input { min-width: 0; padding: 9px; border: 0; font: 800 19px Manrope; background: #fff; }
+.score-box.maths { border-top: 3px solid #2563eb; }
+.score-box.reasoning { border-top: 3px solid #16a36a; }
+.score-box.english { border-top: 3px solid #7c3aed; }
+.score-box.gk { border-top: 3px solid #f97316; }
+.mock-result-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 13px; padding: 14px; border-radius: 15px; background: #f2f4f7; }
+.mock-result-row label { grid-template-columns: 1fr auto; align-items: baseline; }
+.mock-result-row label input { grid-column: 1 / -1; }
+.mock-result-row .total-field input { color: var(--blue); font: 800 20px Manrope; }
+.mock-result-row small { color: var(--muted); font-size: 9px; font-weight: 500; }
+.standalone-label { margin-top: 13px; }
+
+@media (max-width: 900px) {
+  .topbar { grid-template-columns: 1fr auto; }
+  nav { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 30; justify-content: space-around; padding: 7px; border-radius: 16px; background: #0b1220; box-shadow: 0 14px 40px rgba(0,0,0,.3); }
+  .nav-item { padding: 9px 8px; font-size: 10px; }
+  .hero { grid-template-columns: 1fr; padding: 30px; }
+  .hero-stats { grid-template-columns: repeat(3, 1fr); }
+  .metric-grid { grid-template-columns: 1fr 1fr; }
+  .mistake-grid { grid-template-columns: 1fr 1fr; }
+  .plan-grid { grid-template-columns: repeat(3, 1fr); }
+  .filter-bar { grid-template-columns: 1fr 1fr; }
+  body { padding-bottom: 76px; }
+}
+@media (max-width: 640px) {
+  .shell { width: min(100% - 24px, 1240px); padding-top: 22px; }
+  .topbar { padding: 10px 14px; }
+  .sync-pill span { display: none; }
+  .hero { min-height: 0; padding: 25px 20px; border-radius: 21px; }
+  .hero-stats { gap: 0; }
+  .hero-stats div { padding: 12px 8px; }
+  .hero-stats strong { font-size: 22px; }
+  #dateStripDays { grid-template-columns: repeat(5, 1fr); }
+  .date-chip:nth-child(6), .date-chip:nth-child(7) { display: none; }
+  .daily-grid, .comparison-grid, .mistake-grid { grid-template-columns: 1fr; }
+  .mock-callout { grid-template-columns: 1fr; }
+  .page-head { align-items: flex-start; flex-direction: column; }
+  .metric-grid { grid-template-columns: 1fr 1fr; }
+  .metric { padding: 15px; }
+  .metric strong { font-size: 21px; }
+  .subject-row { grid-template-columns: 70px 1fr; }
+  .subject-row .bar-wrap:last-child { grid-column: 2; }
+  .filter-bar { grid-template-columns: 1fr; }
+  .plan-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid .full { grid-column: 1; }
+  .modal-form { padding: 20px; }
+  .mock-meta-grid, .mock-result-row { grid-template-columns: 1fr; }
+  .score-entry-grid { grid-template-columns: 1fr 1fr; }
+}
+
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="#">
+      <span class="logo-mark">90</span>
+      <span>Days to CGL<small>Nikhil × Ankita</small></span>
+    </a>
+    <nav id="nav">
+      <button class="nav-item active" data-view="today">Today</button>
+      <button class="nav-item" data-view="scores">Scores</button>
+      <button class="nav-item" data-view="compare">Compare</button>
+      <button class="nav-item" data-view="mistakes">Mistake Book</button>
+      <button class="nav-item" data-view="plan">90-Day Plan</button>
+    </nav>
+    <button id="syncButton" class="sync-pill"><i></i><span>Local mode</span></button>
+  </header>
+
+  <main class="shell">
+    <section id="view-today" class="view active">
+      <div class="hero">
+        <div>
+          <p class="kicker" id="heroKicker">DAY 1 OF 90</p>
+          <h1 id="heroTitle">Build the score,<br><em>one day at a time.</em></h1>
+          <p id="heroDate" class="hero-date"></p>
+        </div>
+        <div class="hero-stats">
+          <div><strong id="streakValue">0</strong><span>day duo streak</span></div>
+          <div><strong id="bothDoneValue">0</strong><span>days won together</span></div>
+          <div><strong id="daysLeftValue">90</strong><span>days remaining</span></div>
+        </div>
+      </div>
+
+      <div class="date-strip">
+        <button id="prevDay" aria-label="Previous day">←</button>
+        <div id="dateStripDays"></div>
+        <button id="nextDay" aria-label="Next day">→</button>
+      </div>
+
+      <div id="dailyCards" class="daily-grid"></div>
+
+      <aside id="mockCallout" class="mock-callout"></aside>
+    </section>
+
+    <section id="view-scores" class="view">
+      <div class="page-head">
+        <div><p class="kicker">MOCK LOG</p><h2>Every attempt tells a story.</h2></div>
+        <button class="primary" id="openScoreModal">+ Add mock score</button>
+      </div>
+      <div id="scoreSummary" class="metric-grid"></div>
+      <div class="card">
+        <div class="card-head">
+          <div><h3>Mock history</h3><p>Percentile is the value reported by your test platform.</p></div>
+          <select id="scorePersonFilter"><option value="all">Both students</option><option value="nikhil">Nikhil</option><option value="partner">Ankita</option></select>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Date</th><th>Student</th><th>Mock</th><th>Total /390</th><th>Percentile</th><th>Maths</th><th>Reasoning</th><th>English</th><th>GK / GA</th><th></th></tr></thead>
+            <tbody id="scoreRows"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div><h3>Sectional scorebook</h3><p>Scores added to daily sectional targets appear here automatically.</p></div>
+          <button class="primary compact" id="openSectionalModal">+ Log sectional</button>
+        </div>
+        <div id="sectionalSummary" class="sectional-summary"></div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Date</th><th>Student</th><th>Sectional</th><th>Score</th><th>Percentage</th><th>Status</th></tr></thead>
+            <tbody id="sectionalRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-compare" class="view">
+      <div class="page-head">
+        <div><p class="kicker">SIDE BY SIDE</p><h2>Compete with yesterday, together.</h2></div>
+      </div>
+      <div id="comparisonCards" class="comparison-grid"></div>
+      <div class="card chart-card">
+        <div class="card-head"><div><h3>Total score trend</h3><p>Latest 20 mocks per student</p></div><div class="chart-legend"><span class="n"></span>Nikhil <span class="a"></span>Ankita</div></div>
+        <canvas id="trendChart" height="270"></canvas>
+      </div>
+      <div class="card">
+        <div class="card-head"><div><h3>Subject averages</h3><p>See exactly where each person gains marks.</p></div></div>
+        <div id="subjectBars" class="subject-bars"></div>
+      </div>
+    </section>
+
+    <section id="view-mistakes" class="view">
+      <div class="page-head">
+        <div><p class="kicker">LAST-MINUTE GOLD</p><h2>Your mistakes, converted into marks.</h2></div>
+        <button class="primary" id="openMistakeModal">+ Capture mistake</button>
+      </div>
+      <div id="mistakeStats" class="metric-grid"></div>
+      <div class="filter-bar">
+        <input id="mistakeSearch" type="search" placeholder="Search mistake, learning or mock…">
+        <select id="mistakePersonFilter"><option value="all">Both students</option><option value="nikhil">Nikhil</option><option value="partner">Ankita</option></select>
+        <select id="mistakeSubjectFilter"><option value="all">All subjects</option><option>Maths</option><option>Reasoning</option><option>English</option><option>GK</option></select>
+        <label class="check-filter"><input id="unresolvedOnly" type="checkbox"> Revision pending only</label>
+      </div>
+      <div id="mistakeGrid" class="mistake-grid"></div>
+    </section>
+
+    <section id="view-plan" class="view">
+      <div class="page-head">
+        <div><p class="kicker">15 OCT — 12 JAN</p><h2>The complete 90-day runway.</h2></div>
+      </div>
+      <div class="plan-key"><span class="history">History</span><span class="polity">Polity</span><span class="geo">Geography</span><span class="eco">Economy</span><span class="sci">Science</span><span class="static">Static / CA</span></div>
+      <div id="planGrid" class="plan-grid"></div>
+    </section>
+  </main>
+
+  <dialog id="scoreModal">
+    <form id="scoreForm" class="modal-form mock-form">
+      <div class="modal-head"><div><p class="kicker">NEW ATTEMPT</p><h2>Log mock score</h2></div><button type="button" class="close-modal">×</button></div>
+      <div class="mock-meta-grid">
+        <label>Date<input id="scoreDate" type="date" required></label>
+        <label>Student<select id="scoreWho"><option value="nikhil">Nikhil</option><option value="partner">Ankita</option></select></label>
+        <label>Platform<select id="scorePlatform"><option>Testbook</option><option>Oliveboard</option><option>Adda247</option><option>Live mock</option><option>Other</option></select></label>
+        <label>Mock name<input id="scoreName" required placeholder="Full Mock 01"></label>
+      </div>
+      <div class="score-section-title"><span>Section scores</span><small>Total updates automatically</small></div>
+      <div class="score-entry-grid">
+        <label class="score-box maths"><span>Maths</span><small>out of 90</small><input id="scoreMaths" type="number" min="0" max="90" step=".01" placeholder="0"></label>
+        <label class="score-box reasoning"><span>Reasoning</span><small>out of 90</small><input id="scoreReasoning" type="number" min="0" max="90" step=".01" placeholder="0"></label>
+        <label class="score-box english"><span>English</span><small>out of 135</small><input id="scoreEnglish" type="number" min="0" max="135" step=".01" placeholder="0"></label>
+        <label class="score-box gk"><span>GK / GA</span><small>out of 75</small><input id="scoreGk" type="number" min="0" max="75" step=".01" placeholder="0"></label>
+      </div>
+      <div class="mock-result-row">
+        <label class="total-field"><span>Total score</span><small>out of 390</small><input id="scoreTotal" type="number" min="0" max="390" step=".01" required></label>
+        <label><span>Percentile</span><small>reported by platform</small><input id="scorePercentile" type="number" min="0" max="100" step=".01" placeholder="e.g. 92.4"></label>
+      </div>
+      <label class="standalone-label">Quick note<textarea id="scoreNotes" rows="2" placeholder="Weak areas, time issues or what improved…"></textarea></label>
+      <div class="modal-actions">
+        <button class="primary" type="submit">Save score</button>
+        <button type="button" class="secondary" data-close-dialog>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="sectionalModal">
+    <form id="sectionalForm" class="modal-form">
+      <div class="modal-head"><div><p class="kicker">SECTIONAL ATTEMPT</p><h2>Log sectional score</h2></div><button type="button" class="close-modal">×</button></div>
+      <div class="form-grid">
+        <label>Date<input id="sectionalDate" type="date" required></label>
+        <label>Student<select id="sectionalWho"><option value="nikhil">Nikhil</option><option value="partner">Ankita</option></select></label>
+        <label>Subject<select id="sectionalSubject"><option value="maths-sectional">Maths</option><option value="english-sectional">English</option><option value="reasoning-sectional">Reasoning</option></select></label>
+        <label>Sectional name<input id="sectionalName" required placeholder="e.g. Arithmetic sectional 03"></label>
+        <label>Score achieved<input id="sectionalScore" type="number" min="0" step=".01" required placeholder="72"></label>
+        <label>Maximum score<input id="sectionalMax" type="number" min=".01" step=".01" required value="90"></label>
+        <label class="full">Topic / note<input id="sectionalNote" placeholder="Percentage + ratio, 50 questions…"></label>
+      </div>
+      <div class="modal-actions">
+        <button class="primary" type="submit">Save sectional</button>
+        <button type="button" class="secondary" data-close-dialog>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="mistakeModal">
+    <form id="mistakeForm" class="modal-form">
+      <div class="modal-head"><div><p class="kicker">MISTAKE NOTEBOOK</p><h2>Capture it once. Fix it forever.</h2></div><button type="button" class="close-modal">×</button></div>
+      <div class="form-grid">
+        <label>Student<select id="mistakeWho"><option value="nikhil">Nikhil</option><option value="partner">Ankita</option></select></label>
+        <label>Subject<select id="mistakeSubject"><option>Maths</option><option>Reasoning</option><option>English</option><option>GK</option></select></label>
+        <label>Type<select id="mistakeType"><option>Concept gap</option><option>Silly mistake</option><option>Calculation</option><option>Time pressure</option><option>Guess / confusion</option></select></label>
+        <label>Mock / source<input id="mistakeMock" placeholder="OB Full Mock 3, Q42"></label>
+        <label class="full">What went wrong?<textarea id="mistakeText" rows="3" required placeholder="Write the question or mistake in your own words…"></textarea></label>
+        <label class="full">Correct approach / takeaway<textarea id="mistakeLearning" rows="3" required placeholder="The rule, shortcut or fact to remember…"></textarea></label>
+        <label class="full upload-zone">Screenshot <small>Optional · JPG/PNG/WebP · max 2 MB recommended</small><input id="mistakeImage" type="file" accept="image/png,image/jpeg,image/webp"></label>
+      </div>
+      <div class="modal-actions">
+        <button class="primary" type="submit">Save to mistake book</button>
+        <button type="button" class="secondary" data-close-dialog>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="targetModal">
+    <form id="targetForm" class="modal-form">
+      <div class="modal-head"><div><p class="kicker">DAILY PLAN</p><h2 id="targetModalTitle">Add a target</h2></div><button type="button" class="close-modal">×</button></div>
+      <input id="targetId" type="hidden">
+      <input id="targetPerson" type="hidden">
+      <div class="form-grid">
+        <label class="full">Target name<input id="targetTitle" required placeholder="e.g. Reasoning sectional"></label>
+        <label>Category<select id="targetCategory"><option value="mock">Full mock</option><option value="gk">GK / General Awareness</option><option value="maths-sectional">Maths sectional</option><option value="english-sectional">English sectional</option><option value="reasoning-sectional">Reasoning sectional</option><option value="revision">Revision</option><option value="other">Other</option></select></label>
+        <label>Topic / details<input id="targetDetail" placeholder="What exactly will you cover?"></label>
+        <label>Score achieved <small>Optional</small><input id="targetScore" type="number" min="0" step=".01" placeholder="e.g. 72"></label>
+        <label>Maximum score <small>Optional</small><input id="targetMaxScore" type="number" min="0.01" step=".01" placeholder="e.g. 90"></label>
+      </div>
+      <p class="privacy-note">Use score fields for sectionals or any scored practice. Leave them blank for study targets.</p>
+      <div class="modal-actions target-actions">
+        <button class="primary" type="submit">Save target</button>
+        <button type="button" class="secondary" data-close-dialog>Cancel</button>
+        <button id="deleteTarget" type="button" class="secondary danger">Delete target</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="syncModal">
+    <form id="syncForm" class="modal-form">
+      <div class="modal-head"><div><p class="kicker">FREE CLOUD SYNC</p><h2>Connect both devices</h2></div><button type="button" class="close-modal">×</button></div>
+      <div class="setup-steps">
+        <p><b>1.</b> Create a free project at <a href="https://supabase.com/dashboard" target="_blank">Supabase</a>.</p>
+        <p><b>2.</b> Open SQL Editor, paste and run <button id="copySql" type="button" class="inline-button">this setup SQL</button>.</p>
+        <p><b>3.</b> Settings → API: paste the Project URL and anon public key below. Use the same room code on both devices.</p>
+      </div>
+      <label>Project URL<input id="supabaseUrl" type="url" placeholder="https://xxxxx.supabase.co"></label>
+      <label>Anon public key<input id="supabaseKey" type="text" placeholder="eyJhbGci…"></label>
+      <label>Private room code<input id="roomCode" minlength="8" placeholder="Make a long secret only you both know"></label>
+      <p class="privacy-note">The room code separates your data. Do not share your URL, key and room code publicly.</p>
+      <div class="modal-actions">
+        <button class="primary" type="submit">Connect & sync</button>
+        <button type="button" class="secondary" data-close-dialog>Cancel</button>
+        <button id="disconnectSync" type="button" class="secondary danger">Disconnect</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="imageViewer" class="image-viewer" hidden><button aria-label="Close">×</button><img alt="Mistake screenshot"></div>
+  <div id="toast" class="toast" hidden></div>
+<script>
+/* CGL Mains Camp — schedule & syllabus data */
+const CAMP_START = "2026-10-15";
+const CAMP_END = "2027-01-12"; // exactly 90 days, inclusive
+
+const DEFAULT_NAMES = {
+  nikhil: "Nikhil",
+  partner: "Ankita",
+};
+
+const QUOTES = [
+  "Consistency beats intensity. Show up today.",
+  "One clean mock > three half-hearted attempts.",
+  "GK is a daily deposit. Miss a day, feel it in the mock.",
+  "Analyse harder than you attempt.",
+  "Sectionals build muscle. Mocks build race fitness.",
+  "Wrong answers are free coaching — take notes.",
+  "Weekend live mocks = exam adrenaline practice.",
+  "You don't need perfect days. You need finished days.",
+  "Partner energy: check boxes together, celebrate streaks.",
+  "Tier-2 rewards calm under sectional timing. Breathe.",
+];
+
+/** Platform hubs — open series & pick the labelled mock */
+const PLATFORMS = {
+  testbook: {
+    name: "Testbook",
+    series: "https://testbook.com/ssc-cgl/test-series",
+    tier2: "https://testbook.com/ssc-cgl/test-series",
+  },
+  oliveboard: {
+    name: "Oliveboard",
+    series: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/",
+    tier2: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/",
+  },
+  adda: {
+    name: "Adda247",
+    series: "https://www.adda247.com/ssc-cgl-mock-test",
+  },
+};
+
+/**
+ * Weekday mock playlist — mix PYQ, latest-pattern, and original platform mocks.
+ * Links go to platform hubs; label tells which test to open inside the series.
+ */
+const WEEKDAY_MOCKS = [
+  { id: "w01", label: "Testbook · PYQ Tier-II (19 Jan 2026 shift)", platform: "testbook", type: "PYQ", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w02", label: "Oliveboard · Past Year Paper Mock 1", platform: "oliveboard", type: "PYQ", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w03", label: "Testbook · Full Mock (Latest / Eduquity pattern) #1", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w04", label: "Oliveboard · Eduquity Pattern Full Mock #1", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w05", label: "Testbook · PYQ Tier-II 2024 (20 Jan 2025)", platform: "testbook", type: "PYQ", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w06", label: "Oliveboard · Original Full Mock #2", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w07", label: "Testbook · Full Mock (Latest pattern) #2", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w08", label: "Oliveboard · Past Year Paper Mock 2", platform: "oliveboard", type: "PYQ", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w09", label: "Testbook · PYQ Tier-II 2024 (18 Jan 2025)", platform: "testbook", type: "PYQ", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w10", label: "Oliveboard · Eduquity Pattern Full Mock #2", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w11", label: "Testbook · Original Full Mock #3", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w12", label: "Oliveboard · Original Full Mock #3", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w13", label: "Testbook · PYQ Tier-II 2022 pack (pick next unsolved)", platform: "testbook", type: "PYQ", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w14", label: "Oliveboard · Past Year Paper Mock 3", platform: "oliveboard", type: "PYQ", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w15", label: "Testbook · Full Mock (Latest pattern) #4", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w16", label: "Oliveboard · Eduquity Pattern Full Mock #3", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w17", label: "Testbook · Original Full Mock #5", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w18", label: "Oliveboard · Original Full Mock #4", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w19", label: "Testbook · Full Mock (Latest pattern) #6", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w20", label: "Oliveboard · Eduquity Pattern Full Mock #4", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w21", label: "Testbook · PYQ / Most-asked Tier-II CT", platform: "testbook", type: "PYQ", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w22", label: "Oliveboard · Past Year Paper Mock 4", platform: "oliveboard", type: "PYQ", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w23", label: "Testbook · Original Full Mock #7", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w24", label: "Oliveboard · Original Full Mock #5", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w25", label: "Testbook · Full Mock (Latest pattern) #8", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w26", label: "Oliveboard · Eduquity Pattern Full Mock #5", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w27", label: "Testbook · Original Full Mock #9", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w28", label: "Oliveboard · Original Full Mock #6", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w29", label: "Testbook · Full Mock (Latest pattern) #10", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w30", label: "Oliveboard · Eduquity Pattern Full Mock #6", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w31", label: "Testbook · Revision Full Mock #11", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w32", label: "Oliveboard · Revision Full Mock #7", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w33", label: "Testbook · Full Mock (Latest pattern) #12", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w34", label: "Oliveboard · Eduquity Pattern Full Mock #7", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w35", label: "Testbook · Final gear Full Mock #13", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w36", label: "Oliveboard · Final gear Full Mock #8", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w37", label: "Testbook · Full Mock (Latest pattern) #14", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w38", label: "Oliveboard · Eduquity Pattern Full Mock #8", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w39", label: "Testbook · Peak Full Mock #15", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w40", label: "Oliveboard · Peak Full Mock #9", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w41", label: "Testbook · Full Mock (Latest pattern) #16", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w42", label: "Oliveboard · Eduquity Pattern Full Mock #9", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w43", label: "Testbook · Full Mock #17", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w44", label: "Oliveboard · Full Mock #10", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w45", label: "Testbook · Full Mock (Latest pattern) #18", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w46", label: "Oliveboard · Eduquity Pattern Full Mock #10", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w47", label: "Testbook · Full Mock #19", platform: "testbook", type: "Original", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w48", label: "Oliveboard · Full Mock #11", platform: "oliveboard", type: "Original", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { id: "w49", label: "Testbook · Full Mock (Latest pattern) #20", platform: "testbook", type: "Latest pattern", url: "https://testbook.com/ssc-cgl/test-series" },
+  { id: "w50", label: "Oliveboard · Eduquity Pattern Full Mock #11", platform: "oliveboard", type: "Latest pattern", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+];
+
+/** Weekend live mock rotation across platforms */
+const WEEKEND_LIVES = [
+  { label: "Live Mock — Oliveboard Tier-2", platform: "oliveboard", url: "https://www.oliveboard.in/ssc-cgl-tier-2-mock-test/" },
+  { label: "Live Mock — Testbook Ultimate / Live", platform: "testbook", url: "https://testbook.com/ssc-cgl/test-series" },
+  { label: "Live Mock — Adda247 / other platform", platform: "adda", url: "https://www.adda247.com/ssc-cgl-mock-test" },
+  { label: "Live Mock — BYJU'S Exam Prep / Testbook alt", platform: "testbook", url: "https://testbook.com/ssc-cgl/test-series" },
+];
+
+/**
+ * Daily GK topics — Tier-2 GA syllabus coverage.
+ * Cycle designed so History / Polity / Science / Static / CA all stay warm.
+ */
+const GK_TOPICS = [
+  { cat: "history", title: "Ancient India — Indus Valley & Vedic Age", focus: "Sites, pottery, society, early kingdoms" },
+  { cat: "polity", title: "Constitution — Making, Preamble, Sources", focus: "Constituent Assembly, features borrowed" },
+  { cat: "sci", title: "Physics — Motion, Force, Work & Energy", focus: "Units, formulas, everyday applications" },
+  { cat: "geo", title: "Physical Geography — Earth & Solar System", focus: "Lat/long, seasons, eclipses" },
+  { cat: "static", title: "Current Affairs — Last 6 months (National)", focus: "Schemes, appointments, summits" },
+  { cat: "eco", title: "Indian Economy — Basics & Budget terms", focus: "GDP, fiscal vs monetary, deficits" },
+  { cat: "history", title: "Buddhism, Jainism & Mauryan Empire", focus: "Councils, Ashoka, administration" },
+  { cat: "polity", title: "Fundamental Rights & Duties + DPSP", focus: "Articles 12–35, 51A, conflict cases" },
+  { cat: "sci", title: "Chemistry — Acids, Bases, Salts & Everyday chem", focus: "pH, reactions, common compounds" },
+  { cat: "geo", title: "Indian Geography — Physiography", focus: "Himalayas, plains, plateaus, coasts" },
+  { cat: "static", title: "Static GK — Awards, Books, Sports", focus: "Bharat Ratna, Padma, recent winners" },
+  { cat: "history", title: "Gupta Age & Post-Gupta", focus: "Science, art, administration" },
+  { cat: "polity", title: "Parliament — Lok Sabha & Rajya Sabha", focus: "Sessions, bills, privileges" },
+  { cat: "sci", title: "Biology — Human body systems", focus: "Circulatory, digestive, vitamins" },
+  { cat: "eco", title: "Banking & RBI basics", focus: "Repo, CRR, SLR, inflation tools" },
+  { cat: "static", title: "Current Affairs — International + Orgs", focus: "UN, IMF, WHO HQ & heads" },
+  { cat: "history", title: "Delhi Sultanate", focus: "Dynasties, administration, architecture" },
+  { cat: "polity", title: "President, PM, Governor, Council of Ministers", focus: "Powers, impeachment, ordinances" },
+  { cat: "geo", title: "Climate, Monsoon & Soils of India", focus: "Koppen, rainfall, soil types" },
+  { cat: "sci", title: "Physics — Light, Sound, Electricity", focus: "Laws, instruments, SI units" },
+  { cat: "static", title: "Art & Culture — Classical dances & music", focus: "Forms, gharanas, instruments" },
+  { cat: "history", title: "Mughal Empire — Polity & Culture", focus: "Akbar–Aurangzeb, mansabdari, monuments" },
+  { cat: "polity", title: "Judiciary — SC, HC, Judicial review", focus: "Jurisdiction, PIL, key amendments" },
+  { cat: "eco", title: "Govt schemes (last 2–3 years)", focus: "PM schemes — objectives & ministry" },
+  { cat: "sci", title: "Chemistry — Metals, Non-metals, Alloys", focus: "Periodic trends, common alloys" },
+  { cat: "geo", title: "Rivers, Dams & National Parks", focus: "Tributaries, wildlife, UNESCO sites" },
+  { cat: "history", title: "Bhakti–Sufi & Marathas", focus: "Saints, Shivaji admin" },
+  { cat: "polity", title: "Panchayati Raj & Local Bodies", focus: "73rd/74th Amendments, schedules" },
+  { cat: "static", title: "Important Days + Firsts in India/World", focus: "Themes, inventors, discoveries" },
+  { cat: "sci", title: "Biology — Diseases, Vaccines, Nutrition", focus: "Pathogens, deficiency diseases" },
+  { cat: "history", title: "Modern India — Advent of Europeans", focus: "Battles, companies, treaties" },
+  { cat: "polity", title: "Election Commission & Important Amendments", focus: "42, 44, 52, 73, 74, 86, 101…" },
+  { cat: "eco", title: "Five-Year Plans, NITI Aayog, Planning", focus: "Objectives, shift to NITI" },
+  { cat: "geo", title: "World Geography — Continents & Oceans", focus: "Straits, deserts, peaks" },
+  { cat: "static", title: "Current Affairs — Defence, Space, Science news", focus: "ISRO, missiles, discoveries" },
+  { cat: "history", title: "Revolt of 1857 & Socio-religious reform", focus: "Centres, leaders, reformers" },
+  { cat: "polity", title: "Centre–State relations & Emergency", focus: "Articles 352–360, schedules" },
+  { cat: "sci", title: "Everyday Science + Scientific research India", focus: "Institutes, recent breakthroughs" },
+  { cat: "history", title: "INC sessions & Freedom Struggle (1885–1919)", focus: "Moderates, extremists, Home Rule" },
+  { cat: "geo", title: "Agriculture, Minerals & Industries", focus: "Crops, belts, major plants" },
+  { cat: "static", title: "Books & Authors + Portfolios / People in news", focus: "Cabinet, ambassadors, authors" },
+  { cat: "history", title: "Gandhian Era & Mass Movements", focus: "NCM, CDM, Quit India, Round Tables" },
+  { cat: "polity", title: "Constitutional bodies & Statutory bodies", focus: "CAG, UPSC, NHRC, CBI basics" },
+  { cat: "eco", title: "Taxes, GST & Financial markets basics", focus: "Direct/indirect, SEBI, stock terms" },
+  { cat: "sci", title: "Environment & Ecology (SSC favourites)", focus: "Biodiversity, conventions, pollution" },
+  { cat: "static", title: "Revision — Mixed Static GK + CA capsule", focus: "Quick notes + 50 MCQs" },
+  { cat: "history", title: "Revision — Modern History timeline", focus: "1857 → 1947 key events" },
+  { cat: "polity", title: "Revision — Articles & schedules flashcards", focus: "Must-know articles only" },
+  { cat: "geo", title: "Revision — Maps practice (India + World)", focus: "Rivers, capitals, boundaries" },
+  { cat: "sci", title: "Revision — Science formula & fact sheet", focus: "High-yield one-liners" },
+];
+
+const SECTIONAL_MATHS = [
+  "Arithmetic — Percentage, Ratio, Average",
+  "Arithmetic — SI/CI, Profit-Loss, Discount",
+  "Arithmetic — Time-Work, Pipes, Time-Speed",
+  "Arithmetic — Mixture, Partnership, Ages",
+  "Number System + Algebra basics",
+  "Geometry — Triangles & Circles",
+  "Mensuration 2D + 3D",
+  "Trigonometry + Heights & Distances",
+  "DI — Tables, Graphs, Caselets",
+  "Statistics & Probability (Tier-2)",
+  "Mixed Arithmetic sectional",
+  "Mixed Advanced Maths sectional",
+];
+
+const SECTIONAL_ENGLISH = [
+  "Error spotting + Sentence improvement",
+  "Fillers + Cloze test",
+  "Vocab — Synonyms, Antonyms, One-word",
+  "Idioms & Phrases + Spelling",
+  "Active-Passive + Narration",
+  "Para jumbles + Sentence arrangement",
+  "Reading Comprehension (2–3 sets)",
+  "Mixed English sectional (45Q style)",
+];
+
+function parseDate(iso) {
+  const [y, m, d] = iso.split("-").map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function toISO(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function eachDay(startIso, endIso) {
+  const out = [];
+  let cur = parseDate(startIso);
+  const end = parseDate(endIso);
+  while (cur <= end) {
+    out.push(toISO(cur));
+    cur = new Date(cur.getFullYear(), cur.getMonth(), cur.getDate() + 1);
+  }
+  return out;
+}
+
+function isWeekend(iso) {
+  const day = parseDate(iso).getDay();
+  return day === 0 || day === 6;
+}
+
+/** Build full camp calendar */
+function buildSchedule() {
+  const days = eachDay(CAMP_START, CAMP_END);
+  let weekdayIdx = 0;
+  let weekendIdx = 0;
+  let gkIdx = 0;
+
+  return days.map((iso, i) => {
+    const weekend = isWeekend(iso);
+    const gk = GK_TOPICS[gkIdx % GK_TOPICS.length];
+    gkIdx += 1;
+
+    let mock;
+    if (weekend) {
+      const live = WEEKEND_LIVES[weekendIdx % WEEKEND_LIVES.length];
+      weekendIdx += 1;
+      mock = {
+        kind: "live",
+        label: live.label,
+        platform: live.platform,
+        type: "Live weekend",
+        url: live.url,
+      };
+    } else {
+      const m = WEEKDAY_MOCKS[weekdayIdx % WEEKDAY_MOCKS.length];
+      weekdayIdx += 1;
+      mock = {
+        kind: "full",
+        label: m.label,
+        platform: m.platform,
+        type: m.type,
+        url: m.url,
+      };
+    }
+
+    const maths = SECTIONAL_MATHS[i % SECTIONAL_MATHS.length];
+    const english = SECTIONAL_ENGLISH[i % SECTIONAL_ENGLISH.length];
+
+    return {
+      date: iso,
+      weekend,
+      dayIndex: i + 1,
+      mock,
+      gk,
+      sectionals: { maths, english },
+    };
+  });
+}
+
+const SCHEDULE = buildSchedule();
+const SCHEDULE_BY_DATE = Object.fromEntries(SCHEDULE.map((d) => [d.date, d]));
+
+window.CGL_DATA = {
+  CAMP_START,
+  CAMP_END,
+  DEFAULT_NAMES,
+  QUOTES,
+  PLATFORMS,
+  WEEKDAY_MOCKS,
+  GK_TOPICS,
+  SCHEDULE,
+  SCHEDULE_BY_DATE,
+  parseDate,
+  toISO,
+};
+
+</script>
+<script>
+(function () {
+const {
+  CAMP_START, CAMP_END, QUOTES, PLATFORMS, SCHEDULE, SCHEDULE_BY_DATE, parseDate, toISO,
+} = window.CGL_DATA;
+
+const STORAGE_KEY = "cgl-camp-v2";
+const SYNC_KEY = "cgl-camp-supabase";
+const PEOPLE = ["nikhil", "partner"];
+const NAMES = { nikhil: "Nikhil", partner: "Ankita" };
+const SUBJECTS = [
+  { key: "maths", label: "Maths", max: 90 },
+  { key: "reasoning", label: "Reasoning", max: 90 },
+  { key: "english", label: "English", max: 135 },
+  { key: "gk", label: "GK", max: 75 },
+];
+const SQL_SETUP = `create table if not exists public.cgl_rooms (
+  room_id text primary key,
+  payload jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+alter table public.cgl_rooms enable row level security;
+drop policy if exists "room read" on public.cgl_rooms;
+drop policy if exists "room insert" on public.cgl_rooms;
+drop policy if exists "room update" on public.cgl_rooms;
+create policy "room read" on public.cgl_rooms for select to anon using
+  (room_id = (current_setting('request.headers', true)::json->>'x-room-id'));
+create policy "room insert" on public.cgl_rooms for insert to anon with check
+  (room_id = (current_setting('request.headers', true)::json->>'x-room-id'));
+create policy "room update" on public.cgl_rooms for update to anon using
+  (room_id = (current_setting('request.headers', true)::json->>'x-room-id'));
+insert into storage.buckets (id, name, public) values ('cgl-mistakes','cgl-mistakes',true)
+on conflict (id) do update set public = true;
+drop policy if exists "mistake uploads" on storage.objects;
+drop policy if exists "mistake reads" on storage.objects;
+drop policy if exists "mistake deletes" on storage.objects;
+create policy "mistake uploads" on storage.objects for insert to anon with check
+  (bucket_id = 'cgl-mistakes' and (storage.foldername(name))[1] = (current_setting('request.headers', true)::json->>'x-room-id'));
+create policy "mistake reads" on storage.objects for select to anon using (bucket_id = 'cgl-mistakes');
+create policy "mistake deletes" on storage.objects for delete to anon using
+  (bucket_id = 'cgl-mistakes' and (storage.foldername(name))[1] = (current_setting('request.headers', true)::json->>'x-room-id'));`;
+
+let state = loadState();
+let selectedDate = clamp(todayISO());
+let supabase = null;
+let roomId = null;
+let remoteSubscription = null;
+let syncPoll = null;
+let syncTimer = null;
+let applyingRemote = false;
+
+const $ = (selector) => document.querySelector(selector);
+const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+function freshState() {
+  return { checks: {}, targets: {}, scores: [], mistakes: [], version: 2, updatedAt: new Date().toISOString() };
+}
+function loadState() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (raw?.version === 2) return { ...freshState(), ...raw };
+    const old = JSON.parse(localStorage.getItem("cgl-mains-camp-v1"));
+    return old ? { ...freshState(), checks: old.checks || {}, scores: (old.scores || []).map(migrateScore) } : freshState();
+  } catch { return freshState(); }
+}
+function migrateScore(s) {
+  const { computer, ...score } = s;
+  const sections = ["maths", "reasoning", "english", "gk"].map(k => number(score[k])).filter(v => v != null);
+  const sectionTotal = sections.reduce((sum, value) => sum + value, 0);
+  return { ...score, total: sections.length ? sectionTotal : Math.min(Number(score.total) || 0, 390), percentile: score.percentile ?? null };
+}
+function save(sync = true) {
+  state.updatedAt = new Date().toISOString();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  if (sync && supabase && !applyingRemote) {
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(pushState, 500);
+  }
+}
+function todayISO() { return toISO(new Date()); }
+function clamp(iso) { return iso < CAMP_START ? CAMP_START : iso > CAMP_END ? CAMP_END : iso; }
+function shift(iso, days) { const d = parseDate(iso); d.setDate(d.getDate() + days); return toISO(d); }
+function niceDate(iso, options = {}) {
+  return parseDate(iso).toLocaleDateString("en-IN", options.weekday === false
+    ? { day: "numeric", month: "short", year: "numeric" }
+    : { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+}
+function uid() { return crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(16).slice(2)}`; }
+function number(value) { return value === "" || value == null ? null : Number(value); }
+function fmt(value, suffix = "") { return value == null || Number.isNaN(value) ? "—" : `${Math.round(value * 10) / 10}${suffix}`; }
+function average(values) {
+  const clean = values.filter(v => v != null && Number.isFinite(Number(v))).map(Number);
+  return clean.length ? clean.reduce((a, b) => a + b, 0) / clean.length : null;
+}
+function escapeHTML(value = "") {
+  return String(value).replace(/[&<>"']/g, char => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+}
+function toast(message) {
+  const el = $("#toast");
+  el.textContent = message; el.hidden = false;
+  requestAnimationFrame(() => el.classList.add("show"));
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => { el.classList.remove("show"); setTimeout(() => el.hidden = true, 220); }, 2200);
+}
+
+function ensureChecks(date, person) {
+  state.checks[date] ||= {};
+  state.checks[date][person] ||= person === "partner"
+    ? { mock: false, gk: false, maths: false, english: false }
+    : { mock: false, gk: false };
+  return state.checks[date][person];
+}
+function baseTargetsFor(person, day, date) {
+  const oldChecks = ensureChecks(date, person);
+  const tasks = [
+    { id: "base-mock", category: "mock", title: day.weekend ? "Weekend live mock" : "Full Tier-2 mock", detail: day.mock.label, done: Boolean(oldChecks.mock), score: null, maxScore: 390 },
+    { id: "base-gk", category: "gk", title: "Daily GK target", detail: `${day.gk.title} · ${day.gk.focus}`, done: Boolean(oldChecks.gk), score: null, maxScore: null },
+  ];
+  if (person === "partner") tasks.push(
+    { id: "base-maths", category: "maths-sectional", title: "Maths sectional", detail: day.sectionals.maths, done: Boolean(oldChecks.maths), score: null, maxScore: 90 },
+    { id: "base-english", category: "english-sectional", title: "English sectional", detail: day.sectionals.english, done: Boolean(oldChecks.english), score: null, maxScore: 135 },
+  );
+  return tasks;
+}
+function targetsFor(person, date) {
+  state.targets ||= {};
+  state.targets[date] ||= {};
+  if (!state.targets[date][person]) {
+    state.targets[date][person] = baseTargetsFor(person, SCHEDULE_BY_DATE[date], date);
+  }
+  return state.targets[date][person];
+}
+function isSectional(category = "") { return category.endsWith("-sectional"); }
+function categoryLabel(category) {
+  return ({
+    mock: "full mock", gk: "GK / GA", "maths-sectional": "maths sectional",
+    "english-sectional": "English sectional", "reasoning-sectional": "reasoning sectional",
+    revision: "revision", other: "other",
+  })[category] || category;
+}
+function isComplete(person, date) {
+  if (!SCHEDULE_BY_DATE[date]) return false;
+  const targets = targetsFor(person, date);
+  return targets.length > 0 && targets.every(target => target.done);
+}
+function bothDoneCount() { return SCHEDULE.filter(d => PEOPLE.every(p => isComplete(p, d.date))).length; }
+function duoStreak() {
+  if (todayISO() < CAMP_START) return 0;
+  let cursor = clamp(todayISO());
+  if (!PEOPLE.every(p => isComplete(p, cursor))) cursor = shift(cursor, -1);
+  let count = 0;
+  while (cursor >= CAMP_START && PEOPLE.every(p => isComplete(p, cursor))) { count++; cursor = shift(cursor, -1); }
+  return count;
+}
+
+function switchView(view) {
+  $$(".nav-item").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+  $$(".view").forEach(v => v.classList.toggle("active", v.id === `view-${view}`));
+  if (view === "scores") renderScores();
+  if (view === "compare") renderComparison();
+  if (view === "mistakes") renderMistakes();
+  if (view === "plan") renderPlan();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderToday() {
+  const day = SCHEDULE_BY_DATE[selectedDate];
+  const todayIndex = SCHEDULE_BY_DATE[clamp(todayISO())]?.dayIndex || 1;
+  $("#heroKicker").textContent = `DAY ${day.dayIndex} OF 90`;
+  $("#heroDate").textContent = `${niceDate(selectedDate)} · ${day.weekend ? "Live mock day" : "Full mock day"}`;
+  $("#streakValue").textContent = duoStreak();
+  $("#bothDoneValue").textContent = bothDoneCount();
+  $("#daysLeftValue").textContent = Math.max(0, 90 - todayIndex);
+  $("#heroTitle").innerHTML = selectedDate === todayISO()
+    ? `Today's work is<br><em>tomorrow's rank.</em>`
+    : `${selectedDate < todayISO() ? "Review the day," : "Plan the day,"}<br><em>protect the streak.</em>`;
+
+  const dates = Array.from({ length: 7 }, (_, i) => shift(selectedDate, i - 3)).filter(d => d >= CAMP_START && d <= CAMP_END);
+  $("#dateStripDays").innerHTML = dates.map(date => {
+    const d = parseDate(date);
+    return `<button class="date-chip ${date === selectedDate ? "active" : ""}" data-date="${date}">
+      <span>${d.toLocaleDateString("en-IN", { weekday: "short" })}</span><b>${d.getDate()}</b>
+    </button>`;
+  }).join("");
+  $$(".date-chip").forEach(button => button.onclick = () => { selectedDate = button.dataset.date; renderToday(); });
+
+  $("#dailyCards").innerHTML = PEOPLE.map(person => {
+    const targets = targetsFor(person, selectedDate);
+    const done = targets.filter(target => target.done).length;
+    const pct = targets.length ? Math.round(done / targets.length * 100) : 0;
+    return `<article class="student-card ${person === "partner" ? "ankita" : ""}">
+      <div class="student-head">
+        <div class="avatar">${NAMES[person].slice(0, 2).toUpperCase()}</div>
+        <div><h3>${NAMES[person]}</h3><p>${person === "partner" ? "Full-time plan" : "Working plan"} · flexible targets</p></div>
+        <div class="completion"><b>${pct}%</b><span>${done} of ${targets.length} done</span></div>
+      </div>
+      <div class="tasks">${targets.map(target => `<div class="task-row ${target.done ? "done" : ""}">
+        <input type="checkbox" data-person="${person}" data-target="${target.id}" ${target.done ? "checked" : ""}>
+        <span><strong>${escapeHTML(target.title)}</strong><small>${escapeHTML(target.detail || "No details added")}</small></span>
+        <span><em class="task-tag">${escapeHTML(categoryLabel(target.category))}</em>${target.score != null ? `<span class="task-score">${fmt(target.score)}${target.maxScore ? ` / ${fmt(target.maxScore)}` : ""}</span>` : ""}</span>
+        <button class="edit-target" data-edit-person="${person}" data-edit-target="${target.id}" title="Edit target">✎</button>
+      </div>`).join("")}
+      <button class="add-target" data-add-person="${person}">+ Add another target</button></div>
+    </article>`;
+  }).join("");
+  $$(".task-row input").forEach(input => input.onchange = () => {
+    const target = targetsFor(input.dataset.person, selectedDate).find(item => item.id === input.dataset.target);
+    target.done = input.checked;
+    save(); renderToday();
+    if (PEOPLE.every(p => isComplete(p, selectedDate))) toast("Day won together. Brilliant work.");
+  });
+  $$("[data-add-person]").forEach(button => button.onclick = () => openTargetModal(button.dataset.addPerson));
+  $$("[data-edit-target]").forEach(button => button.onclick = () => openTargetModal(button.dataset.editPerson, button.dataset.editTarget));
+
+  const platform = PLATFORMS[day.mock.platform]?.name || day.mock.platform;
+  $("#mockCallout").innerHTML = `<div><p class="kicker">${day.weekend ? "WEEKEND LIVE" : "TODAY'S MOCK"}</p>
+    <h3>${escapeHTML(day.mock.label)}</h3><p>${platform} · ${day.mock.type} · Score tracked out of 390</p></div>
+    <a class="primary" href="${day.mock.url}" target="_blank" rel="noopener">Open mock ↗</a>`;
+  save(false);
+}
+
+function renderScores() {
+  const filter = $("#scorePersonFilter").value;
+  const scores = state.scores.filter(s => filter === "all" || s.who === filter).sort((a, b) => b.date.localeCompare(a.date));
+  const totals = scores.map(s => s.total);
+  const percentiles = scores.map(s => s.percentile);
+  $("#scoreSummary").innerHTML = [
+    ["Mocks logged", scores.length, "attempts"],
+    ["Average score", fmt(average(totals)), "out of 390"],
+    ["Best score", fmt(totals.length ? Math.max(...totals) : null), "personal best"],
+    ["Avg percentile", fmt(average(percentiles), "%"), "platform reported"],
+  ].map(([label, value, sub]) => `<div class="metric"><span>${label}</span><strong>${value}</strong><small>${sub}</small></div>`).join("");
+  $("#scoreRows").innerHTML = scores.length ? scores.map(s => `<tr>
+    <td>${niceDate(s.date, { weekday: false })}</td><td class="person-name ${s.who}">${NAMES[s.who]}</td>
+    <td><b>${escapeHTML(s.name)}</b><br><small>${escapeHTML(s.platform)}</small></td>
+    <td><b>${fmt(s.total)}</b></td><td>${fmt(s.percentile, "%")}</td>
+    ${SUBJECTS.map(sub => `<td>${fmt(s[sub.key])}</td>`).join("")}
+    <td><button class="icon-delete" data-score="${s.id}" title="Delete">×</button></td>
+  </tr>`).join("") : `<tr><td colspan="10" class="empty-state">No scores yet. Add the first mock to begin your trend.</td></tr>`;
+  $$("[data-score]").forEach(button => button.onclick = () => {
+    if (!confirm("Delete this mock score?")) return;
+    state.scores = state.scores.filter(s => s.id !== button.dataset.score); save(); renderScores();
+  });
+
+  const sectionals = [];
+  Object.entries(state.targets || {}).forEach(([date, people]) => {
+    PEOPLE.forEach(who => (people[who] || []).forEach(target => {
+      if (isSectional(target.category) && target.score != null) sectionals.push({ ...target, date, who });
+    }));
+  });
+  sectionals.sort((a, b) => b.date.localeCompare(a.date));
+  $("#sectionalSummary").innerHTML = PEOPLE.map(person => {
+    const own = sectionals.filter(item => item.who === person && item.maxScore);
+    const avgPct = average(own.map(item => item.score / item.maxScore * 100));
+    return `<span class="sectional-pill">${NAMES[person]} · ${own.length} scored · avg ${fmt(avgPct, "%")}</span>`;
+  }).join("");
+  $("#sectionalRows").innerHTML = sectionals.length ? sectionals.map(item => `<tr>
+    <td>${niceDate(item.date, { weekday: false })}</td>
+    <td class="person-name ${item.who}">${NAMES[item.who]}</td>
+    <td><b>${escapeHTML(item.title)}</b><br><small>${escapeHTML(item.detail || categoryLabel(item.category))}</small></td>
+    <td>${fmt(item.score)}${item.maxScore ? ` / ${fmt(item.maxScore)}` : ""}</td>
+    <td>${item.maxScore ? fmt(item.score / item.maxScore * 100, "%") : "—"}</td>
+    <td>${item.done ? "Completed" : "In progress"}</td>
+  </tr>`).join("") : `<tr><td colspan="6" class="empty-state">Sectional scores will appear after you add a score to a daily sectional target.</td></tr>`;
+}
+
+function statsFor(person) {
+  const scores = state.scores.filter(s => s.who === person).sort((a, b) => a.date.localeCompare(b.date));
+  const last5 = scores.slice(-5);
+  const previous5 = scores.slice(-10, -5);
+  const avg = average(scores.map(s => s.total));
+  const recent = average(last5.map(s => s.total));
+  const previous = average(previous5.map(s => s.total));
+  return {
+    scores, avg, best: scores.length ? Math.max(...scores.map(s => s.total)) : null,
+    percentile: average(scores.map(s => s.percentile)),
+    improvement: recent != null && previous != null ? recent - previous : null,
+    subjects: Object.fromEntries(SUBJECTS.map(sub => [sub.key, average(scores.map(s => s[sub.key]))])),
+  };
+}
+function renderComparison() {
+  const allStats = Object.fromEntries(PEOPLE.map(p => [p, statsFor(p)]));
+  $("#comparisonCards").innerHTML = PEOPLE.map(person => {
+    const s = allStats[person];
+    return `<article class="compare-card ${person}"><h3>${NAMES[person]}</h3>
+      <div class="compare-main">${fmt(s.avg)} <small>average / 390</small></div>
+      <div class="compare-list">
+        <div><span>Best score</span><b>${fmt(s.best)}</b></div>
+        <div><span>Avg percentile</span><b>${fmt(s.percentile, "%")}</b></div>
+        <div><span>Mocks logged</span><b>${s.scores.length}</b></div>
+        <div><span>Last 5 vs prev 5</span><b>${s.improvement == null ? "—" : `${s.improvement >= 0 ? "+" : ""}${fmt(s.improvement)}`}</b></div>
+      </div></article>`;
+  }).join("");
+  $("#subjectBars").innerHTML = SUBJECTS.map(sub => `<div class="subject-row"><b>${sub.label}</b>
+    ${PEOPLE.map(person => {
+      const value = allStats[person].subjects[sub.key];
+      return `<div class="bar-wrap ${person === "partner" ? "ankita" : ""}"><span>${NAMES[person]} · ${fmt(value)}</span><div class="bar-track"><i style="width:${value == null ? 0 : value / sub.max * 100}%"></i></div></div>`;
+    }).join("")}</div>`).join("");
+  drawTrend(allStats);
+}
+function drawTrend(stats) {
+  const canvas = $("#trendChart");
+  const ctx = canvas.getContext("2d");
+  const width = canvas.clientWidth || 800, height = 270, dpr = devicePixelRatio || 1;
+  canvas.width = width * dpr; canvas.height = height * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const pad = { l: 38, r: 16, t: 15, b: 26 };
+  ctx.clearRect(0, 0, width, height); ctx.font = "10px DM Sans"; ctx.fillStyle = "#98a2b3";
+  [0, 100, 200, 300, 390].forEach(value => {
+    const y = pad.t + (390 - value) / 390 * (height - pad.t - pad.b);
+    ctx.strokeStyle = "#edf0f4"; ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(width - pad.r, y); ctx.stroke();
+    ctx.fillText(value, 5, y + 3);
+  });
+  const draw = (scores, color) => {
+    const points = scores.slice(-20); if (!points.length) return;
+    ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.lineJoin = "round"; ctx.beginPath();
+    points.forEach((score, i) => {
+      const x = points.length === 1 ? width / 2 : pad.l + i / (points.length - 1) * (width - pad.l - pad.r);
+      const y = pad.t + (390 - score.total) / 390 * (height - pad.t - pad.b);
+      i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+    }); ctx.stroke();
+    points.forEach((score, i) => {
+      const x = points.length === 1 ? width / 2 : pad.l + i / (points.length - 1) * (width - pad.l - pad.r);
+      const y = pad.t + (390 - score.total) / 390 * (height - pad.t - pad.b);
+      ctx.fillStyle = color; ctx.beginPath(); ctx.arc(x, y, 3.5, 0, Math.PI * 2); ctx.fill();
+    });
+  };
+  draw(stats.nikhil.scores, "#2563eb"); draw(stats.partner.scores, "#7c3aed");
+}
+
+function renderMistakes() {
+  const search = $("#mistakeSearch").value.trim().toLowerCase();
+  const person = $("#mistakePersonFilter").value;
+  const subject = $("#mistakeSubjectFilter").value;
+  const pendingOnly = $("#unresolvedOnly").checked;
+  const filtered = state.mistakes.filter(m =>
+    (person === "all" || m.who === person) &&
+    (subject === "all" || m.subject === subject) &&
+    (!pendingOnly || !m.revised) &&
+    (!search || [m.text, m.learning, m.mock, m.type].join(" ").toLowerCase().includes(search))
+  ).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  $("#mistakeStats").innerHTML = [
+    ["Total captured", state.mistakes.length, "mistakes"],
+    ["Revision pending", state.mistakes.filter(m => !m.revised).length, "need another look"],
+    ["Revised", state.mistakes.filter(m => m.revised).length, "converted to learning"],
+    ["With screenshots", state.mistakes.filter(m => m.imageUrl).length, "visual references"],
+  ].map(([label, value, sub]) => `<div class="metric"><span>${label}</span><strong>${value}</strong><small>${sub}</small></div>`).join("");
+  $("#mistakeGrid").innerHTML = filtered.length ? filtered.map(m => `<article class="mistake-card">
+    ${m.imageUrl ? `<img class="mistake-image" src="${m.imageUrl}" data-image="${m.id}" alt="Screenshot for ${escapeHTML(m.subject)} mistake">` : ""}
+    <div class="mistake-content"><div class="mistake-top"><span class="label person">${NAMES[m.who]}</span><span class="label">${escapeHTML(m.subject)}</span><span class="label">${escapeHTML(m.type)}</span></div>
+      <h3>${escapeHTML(m.text)}</h3><div class="learning"><b>Remember:</b> ${escapeHTML(m.learning)}</div>
+      <div class="mistake-source">${escapeHTML(m.mock || "No source")} · ${niceDate(m.date, { weekday: false })}</div>
+      <div class="mistake-actions"><button class="revision-button ${m.revised ? "done" : ""}" data-revise="${m.id}">${m.revised ? "✓ Revised" : "Mark revised"}</button><button class="icon-delete" data-mistake="${m.id}">Delete</button></div>
+    </div></article>`).join("") : `<div class="empty-state">No matching mistakes. Capture questions you never want to get wrong again.</div>`;
+  $$("[data-revise]").forEach(button => button.onclick = () => {
+    const item = state.mistakes.find(m => m.id === button.dataset.revise); item.revised = !item.revised; save(); renderMistakes();
+  });
+  $$("[data-mistake]").forEach(button => button.onclick = async () => {
+    if (!confirm("Delete this mistake note?")) return;
+    const item = state.mistakes.find(m => m.id === button.dataset.mistake);
+    if (supabase && item.storagePath) await supabase.storage.from("cgl-mistakes").remove([item.storagePath]);
+    state.mistakes = state.mistakes.filter(m => m.id !== button.dataset.mistake); save(); renderMistakes();
+  });
+  $$("[data-image]").forEach(image => image.onclick = () => {
+    $("#imageViewer img").src = image.src; $("#imageViewer").hidden = false;
+  });
+}
+
+function renderPlan() {
+  $("#planGrid").innerHTML = SCHEDULE.map(day => `<article class="plan-day ${day.gk.cat} ${day.date === todayISO() ? "today" : ""}">
+    <small>DAY ${day.dayIndex} · ${day.date.slice(5)} ${day.weekend ? "· LIVE" : ""}</small>
+    <strong>${escapeHTML(day.gk.title)}</strong><p>${escapeHTML(day.gk.focus)}</p>
+  </article>`).join("");
+}
+
+function openTargetModal(person, targetId = null) {
+  $("#targetForm").reset();
+  $("#targetPerson").value = person;
+  $("#targetId").value = targetId || "";
+  $("#targetModalTitle").textContent = targetId ? "Edit target" : `Add target for ${NAMES[person]}`;
+  $("#deleteTarget").hidden = !targetId;
+  if (targetId) {
+    const target = targetsFor(person, selectedDate).find(item => item.id === targetId);
+    if (!target) return;
+    $("#targetTitle").value = target.title;
+    $("#targetCategory").value = target.category;
+    $("#targetDetail").value = target.detail || "";
+    $("#targetScore").value = target.score ?? "";
+    $("#targetMaxScore").value = target.maxScore ?? "";
+  } else {
+    $("#targetCategory").value = "maths-sectional";
+  }
+  $("#targetModal").showModal();
+}
+
+async function imageToCompressed(file) {
+  if (!file) return null;
+  if (!file.type.startsWith("image/")) throw new Error("Please choose an image file.");
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, 1400 / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale); canvas.height = Math.round(bitmap.height * scale);
+  canvas.getContext("2d").drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/jpeg", .78));
+  if (blob.size > 2.5 * 1024 * 1024) throw new Error("Image is too large. Crop it and try again.");
+  return blob;
+}
+async function blobToDataURL(blob) {
+  return new Promise((resolve, reject) => { const r = new FileReader(); r.onload = () => resolve(r.result); r.onerror = reject; r.readAsDataURL(blob); });
+}
+
+async function hashRoom(code) {
+  const bytes = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(code));
+  return [...new Uint8Array(bytes)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+async function connectSync(config, initial = false) {
+  try {
+    const { createClient } = await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+    roomId = await hashRoom(config.room);
+    supabase = createClient(config.url, config.key, {
+      auth: { persistSession: false },
+      global: { headers: { "x-room-id": roomId } },
+    });
+    const { data, error } = await supabase.from("cgl_rooms").select("payload").eq("room_id", roomId).maybeSingle();
+    if (error) throw error;
+    if (data?.payload) {
+      applyingRemote = true; state = { ...freshState(), ...data.payload }; save(false); applyingRemote = false;
+    } else await pushState();
+    localStorage.setItem(SYNC_KEY, JSON.stringify(config));
+    remoteSubscription?.unsubscribe();
+    remoteSubscription = supabase.channel(`room-${roomId}`).on("postgres_changes",
+      { event: "UPDATE", schema: "public", table: "cgl_rooms", filter: `room_id=eq.${roomId}` },
+      payload => {
+        if (!payload.new?.payload || payload.new.payload.updatedAt <= state.updatedAt) return;
+        applyingRemote = true; state = { ...freshState(), ...payload.new.payload }; save(false); applyingRemote = false;
+        renderAll(); toast("Synced new data");
+      }).subscribe();
+    clearInterval(syncPoll);
+    syncPoll = setInterval(pullState, 10000);
+    updateSyncUI(true); renderAll();
+    if (!initial) { $("#syncModal").close(); toast("Connected — both devices now share data"); }
+  } catch (error) {
+    supabase = null; roomId = null; updateSyncUI(false);
+    if (!initial) toast(`Could not connect: ${error.message || "check setup"}`);
+  }
+}
+async function pullState() {
+  if (!supabase || !roomId) return;
+  const { data } = await supabase.from("cgl_rooms").select("payload").eq("room_id", roomId).maybeSingle();
+  if (!data?.payload || data.payload.updatedAt <= state.updatedAt) return;
+  applyingRemote = true; state = { ...freshState(), ...data.payload }; save(false); applyingRemote = false;
+  renderAll(); toast("Synced new data");
+}
+async function pushState() {
+  if (!supabase || !roomId) return;
+  const { error } = await supabase.from("cgl_rooms").upsert({ room_id: roomId, payload: state, updated_at: new Date().toISOString() });
+  if (error) toast("Cloud sync failed — saved locally");
+}
+function updateSyncUI(connected) {
+  $("#syncButton").classList.toggle("connected", connected);
+  $("#syncButton span").textContent = connected ? "Synced together" : "Local mode";
+}
+function disconnectSync() {
+  remoteSubscription?.unsubscribe(); remoteSubscription = null; clearInterval(syncPoll); syncPoll = null; supabase = null; roomId = null;
+  localStorage.removeItem(SYNC_KEY); updateSyncUI(false); $("#syncModal").close(); toast("Cloud disconnected; local data remains");
+}
+
+function renderAll() { renderToday(); renderScores(); renderComparison(); renderMistakes(); renderPlan(); }
+
+// Navigation and day controls
+$$(".nav-item").forEach(button => button.onclick = () => switchView(button.dataset.view));
+$("#prevDay").onclick = () => { if (selectedDate > CAMP_START) { selectedDate = shift(selectedDate, -1); renderToday(); } };
+$("#nextDay").onclick = () => { if (selectedDate < CAMP_END) { selectedDate = shift(selectedDate, 1); renderToday(); } };
+
+// Score modal
+$("#openScoreModal").onclick = () => { $("#scoreDate").value = clamp(todayISO()); $("#scoreModal").showModal(); };
+["scoreMaths", "scoreReasoning", "scoreEnglish", "scoreGk"].forEach(id => {
+  $(`#${id}`).addEventListener("input", () => {
+    const values = ["scoreMaths", "scoreReasoning", "scoreEnglish", "scoreGk"].map(field => number($(`#${field}`).value));
+    const hasAnyScore = values.some(value => value != null);
+    $("#scoreTotal").value = hasAnyScore ? Math.round(values.reduce((sum, value) => sum + (value || 0), 0) * 100) / 100 : "";
+  });
+});
+$("#scoreForm").onsubmit = event => {
+  event.preventDefault();
+  state.scores.push({
+    id: uid(), date: $("#scoreDate").value, who: $("#scoreWho").value, platform: $("#scorePlatform").value,
+    name: $("#scoreName").value.trim(), total: number($("#scoreTotal").value), percentile: number($("#scorePercentile").value),
+    maths: number($("#scoreMaths").value), reasoning: number($("#scoreReasoning").value),
+    english: number($("#scoreEnglish").value), gk: number($("#scoreGk").value), notes: $("#scoreNotes").value.trim(),
+  });
+  save(); event.target.reset(); $("#scoreModal").close(); renderScores(); toast("Mock score saved");
+};
+$("#scorePersonFilter").onchange = renderScores;
+
+// Dedicated sectional score entry
+$("#openSectionalModal").onclick = () => {
+  $("#sectionalForm").reset();
+  $("#sectionalDate").value = selectedDate;
+  $("#sectionalMax").value = "90";
+  $("#sectionalModal").showModal();
+};
+$("#sectionalSubject").onchange = () => {
+  $("#sectionalMax").value = $("#sectionalSubject").value === "english-sectional" ? "135" : "90";
+};
+$("#sectionalForm").onsubmit = event => {
+  event.preventDefault();
+  const date = $("#sectionalDate").value;
+  if (!SCHEDULE_BY_DATE[date]) {
+    toast("Choose a date inside the 90-day plan");
+    return;
+  }
+  const score = number($("#sectionalScore").value);
+  const maxScore = number($("#sectionalMax").value);
+  if (score > maxScore) {
+    toast("Score cannot be greater than maximum score");
+    return;
+  }
+  const person = $("#sectionalWho").value;
+  targetsFor(person, date).push({
+    id: uid(),
+    category: $("#sectionalSubject").value,
+    title: $("#sectionalName").value.trim(),
+    detail: $("#sectionalNote").value.trim(),
+    score,
+    maxScore,
+    done: true,
+  });
+  save(); event.target.reset(); $("#sectionalModal").close();
+  if (date === selectedDate) renderToday();
+  renderScores(); toast("Sectional score saved");
+};
+
+// Flexible daily targets and sectional scores
+$("#targetForm").onsubmit = event => {
+  event.preventDefault();
+  const person = $("#targetPerson").value;
+  const targetId = $("#targetId").value;
+  const score = number($("#targetScore").value);
+  const maxScore = number($("#targetMaxScore").value);
+  if (score != null && maxScore != null && score > maxScore) {
+    toast("Score cannot be greater than maximum score");
+    return;
+  }
+  const targetData = {
+    category: $("#targetCategory").value,
+    title: $("#targetTitle").value.trim(),
+    detail: $("#targetDetail").value.trim(),
+    score,
+    maxScore,
+  };
+  const targets = targetsFor(person, selectedDate);
+  if (targetId) Object.assign(targets.find(item => item.id === targetId), targetData);
+  else targets.push({ id: uid(), ...targetData, done: false });
+  save(); $("#targetModal").close(); renderToday(); renderScores(); toast(targetId ? "Target updated" : "Target added");
+};
+$("#deleteTarget").onclick = () => {
+  const person = $("#targetPerson").value;
+  const targetId = $("#targetId").value;
+  if (!targetId || !confirm("Remove this target from the day?")) return;
+  state.targets[selectedDate][person] = targetsFor(person, selectedDate).filter(item => item.id !== targetId);
+  save(); $("#targetModal").close(); renderToday(); renderScores(); toast("Target removed");
+};
+
+// Mistake modal
+$("#openMistakeModal").onclick = () => $("#mistakeModal").showModal();
+$("#mistakeForm").onsubmit = async event => {
+  event.preventDefault();
+  const submit = event.submitter; submit.disabled = true; submit.textContent = "Saving…";
+  try {
+    const id = uid(), blob = await imageToCompressed($("#mistakeImage").files[0]);
+    let imageUrl = null, storagePath = null;
+    if (blob && supabase) {
+      storagePath = `${roomId}/${id}.jpg`;
+      const { error } = await supabase.storage.from("cgl-mistakes").upload(storagePath, blob, { contentType: "image/jpeg" });
+      if (error) throw error;
+      imageUrl = supabase.storage.from("cgl-mistakes").getPublicUrl(storagePath).data.publicUrl;
+    } else if (blob) imageUrl = await blobToDataURL(blob);
+    state.mistakes.push({
+      id, who: $("#mistakeWho").value, subject: $("#mistakeSubject").value, type: $("#mistakeType").value,
+      mock: $("#mistakeMock").value.trim(), text: $("#mistakeText").value.trim(),
+      learning: $("#mistakeLearning").value.trim(), imageUrl, storagePath,
+      revised: false, date: todayISO(), createdAt: new Date().toISOString(),
+    });
+    save(); event.target.reset(); $("#mistakeModal").close(); renderMistakes(); toast("Added to mistake book");
+  } catch (error) { toast(error.message || "Could not save mistake"); }
+  finally { submit.disabled = false; submit.textContent = "Save to mistake book"; }
+};
+["mistakeSearch", "mistakePersonFilter", "mistakeSubjectFilter", "unresolvedOnly"].forEach(id => {
+  $(`#${id}`).addEventListener(id === "mistakeSearch" ? "input" : "change", renderMistakes);
+});
+
+// Dialogs and image viewer
+$$(".close-modal, [data-close-dialog]").forEach(button => {
+  button.onclick = () => button.closest("dialog").close();
+});
+$("#imageViewer button").onclick = () => $("#imageViewer").hidden = true;
+$("#imageViewer").onclick = event => { if (event.target.id === "imageViewer") event.currentTarget.hidden = true; };
+
+// Sync setup
+$("#syncButton").onclick = () => {
+  const config = JSON.parse(localStorage.getItem(SYNC_KEY) || "{}");
+  $("#supabaseUrl").value = config.url || ""; $("#supabaseKey").value = config.key || ""; $("#roomCode").value = config.room || "";
+  $("#syncModal").showModal();
+};
+$("#copySql").onclick = async () => {
+  try {
+    if (navigator.clipboard) await navigator.clipboard.writeText(SQL_SETUP);
+    else {
+      const area = document.createElement("textarea");
+      area.value = SQL_SETUP; document.body.appendChild(area); area.select();
+      document.execCommand("copy"); area.remove();
+    }
+    toast("Setup SQL copied");
+  } catch { prompt("Copy this SQL:", SQL_SETUP); }
+};
+$("#syncForm").onsubmit = async event => {
+  event.preventDefault();
+  await connectSync({ url: $("#supabaseUrl").value.trim(), key: $("#supabaseKey").value.trim(), room: $("#roomCode").value.trim() });
+};
+$("#disconnectSync").onclick = disconnectSync;
+
+window.addEventListener("resize", () => $("#view-compare").classList.contains("active") && renderComparison());
+renderAll();
+const savedConfig = JSON.parse(localStorage.getItem(SYNC_KEY) || "null");
+if (savedConfig) connectSync(savedConfig, true);
+})();
+
+</script>
+</body>
+</html>
